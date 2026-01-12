@@ -22,7 +22,8 @@ build:
           ctest -V -C Release --test-dir build
         fi
         cmake --install build
-      else: |
+    - if: win
+      then: |
         @echo on
         cmake -S . -B build %CMAKE_ARGS% -DBUILD_SHARED_LIBS=ON
         if errorlevel 1 exit 1
@@ -48,10 +49,13 @@ requirements:
     - catch2
     - howardhinnant_date
     - libboost-devel
-    - mxml
     - nlohmann_json
+    - zeem
   run_exports:
     - ${{ pin_subpackage(name, upper_bound="x") }}
+  ignore_run_exports:
+    by_name:
+      - catch2
 
 tests:
   - script:
