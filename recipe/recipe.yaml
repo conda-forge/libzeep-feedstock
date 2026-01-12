@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://github.com/mhekkel/${{ name }}/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 0235eceee801e48b015156943592ac5be836d66cbcad27c114a3a1c73063c66b
+  sha256: 1855b0ed61e1002895c60f0f3c059290f3a3df8a64589ddb9358854453470580
 build:
   number: 0
   script:
