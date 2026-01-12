@@ -1,6 +1,6 @@
 context:
   name: libzeep
-  version: "7.2.0"
+  version: "7.3.0"
 
 package:
   name: ${{ name }}
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://github.com/mhekkel/${{ name }}/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: da02dd20b1f82d0628e9a973052f119cd118cf40b55d76e054d79d46bee0e1e8
+  sha256: 1855b0ed61e1002895c60f0f3c059290f3a3df8a64589ddb9358854453470580
 build:
   number: 0
   script:
@@ -22,9 +22,10 @@ build:
           ctest -V -C Release --test-dir build
         fi
         cmake --install build
-      else: |
+    - if: win
+      then: |
         @echo on
-        cmake -S . -B build %CMAKE_ARGS% -DBUILD_SHARED_LIBS=ON
+        cmake -S . -B build %CMAKE_ARGS% -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON -DBUILD_SHARED_LIBS=ON
         if errorlevel 1 exit 1
         cmake --build build --config Release --parallel %CPU_COUNT%
         if errorlevel 1 exit 1
@@ -48,10 +49,13 @@ requirements:
     - catch2
     - howardhinnant_date
     - libboost-devel
-    - mxml
     - nlohmann_json
+    - zeem
   run_exports:
     - ${{ pin_subpackage(name, upper_bound="x") }}
+  ignore_run_exports:
+    by_name:
+      - catch2
 
 tests:
   - script:
