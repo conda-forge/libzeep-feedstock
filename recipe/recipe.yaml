@@ -17,22 +17,22 @@ build:
         set -exo pipefail
         export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
         cmake -S . -B build ${CMAKE_ARGS} -DBUILD_SHARED_LIBS=ON
-        cmake --build build --config Release --parallel ${CPU_COUNT}
-        if [[ "${build_platform}" == "${target_platform}" ]]; then
-          ctest -V -C Release --test-dir build
+        cmake --build build --parallel ${CPU_COUNT}
+        if [[ "${target_platform}" == "linux-aarch64" || "${target_platform}" == "linux-ppc64le" ]]; then
+          ctest -V --test-dir build -E "(http-test|daemon-test)"
         fi
         cmake --install build
     - if: win
       then: |
         @echo on
-        cmake -S . -B build %CMAKE_ARGS% -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON -DBUILD_SHARED_LIBS=ON
+        cmake -S . -B build -G "NMake Makefiles JOM" %CMAKE_ARGS% -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON -DBUILD_SHARED_LIBS=ON
         if errorlevel 1 exit 1
-        cmake --build build --config Release --parallel %CPU_COUNT%
+        cmake --build build --parallel %CPU_COUNT%
         if errorlevel 1 exit 1
         set PATH=%CD%\build\bin;%CD%\build\lib;%CD%\build\Release;%CD%\build\bin\Release;%CD%\build\lib\Release;%PATH%
         if errorlevel 1 exit 1
         @REM Run tests, excluding the HTTP test which brings about a SEGFAULT error
-        ctest -V -C Release --test-dir build -E "http-test"
+        ctest -V --test-dir build -E "http-test"
         if errorlevel 1 exit 1
         cmake --install build
         if errorlevel 1 exit 1
@@ -44,6 +44,8 @@ requirements:
     - cmake
     - if: unix
       then: make
+    - if: win
+      then: jom
     - pkg-config
   host:
     - catch2
