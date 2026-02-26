@@ -1,6 +1,6 @@
 context:
   name: libzeep
-  version: "7.3.1"
+  version: "7.3.2"
 
 package:
   name: ${{ name }}
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://github.com/mhekkel/${{ name }}/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: da78104d62007efccc254060e5df4a1c21d59d061ba64c512587888fddb253bf
+  sha256: e794589ef8aad5bd4d7bf674ca0dfa2a4027b3bcc966496490ba18d8908cd080
 build:
   number: 0
   script:
