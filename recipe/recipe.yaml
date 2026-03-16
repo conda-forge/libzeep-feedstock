@@ -10,13 +10,13 @@ source:
   url: https://github.com/mhekkel/${{ name }}/archive/refs/tags/v${{ version }}.tar.gz
   sha256: e794589ef8aad5bd4d7bf674ca0dfa2a4027b3bcc966496490ba18d8908cd080
 build:
-  number: 0
+  number: 1
   script:
     - if: unix
       then: |
         set -exo pipefail
         export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
-        cmake -S . -B build ${CMAKE_ARGS} -DBUILD_SHARED_LIBS=ON
+        cmake -S . -B build ${CMAKE_ARGS} -DBUILD_SHARED_LIBS=ON -DZEEP_USE_BOOST_ASIO=OFF
         cmake --build build --parallel ${CPU_COUNT}
         if [[ "${target_platform}" == "linux-aarch64" || "${target_platform}" == "linux-ppc64le" ]]; then
           ctest -V --test-dir build -E "(http-test|daemon-test)"
@@ -25,7 +25,7 @@ build:
     - if: win
       then: |
         @echo on
-        cmake -S . -B build %CMAKE_ARGS% -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON -DBUILD_SHARED_LIBS=ON
+        cmake -S . -B build %CMAKE_ARGS% -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON -DBUILD_SHARED_LIBS=ON -DZEEP_USE_BOOST_ASIO=OFF
         if errorlevel 1 exit 1
         cmake --build build --config Release --parallel %CPU_COUNT%
         if errorlevel 1 exit 1
@@ -46,9 +46,9 @@ requirements:
       then: make
     - pkg-config
   host:
+    - asio
     - catch2
     - howardhinnant_date
-    - libboost-devel
     - nlohmann_json
     - zeem
   run_exports:
