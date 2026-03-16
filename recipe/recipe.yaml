@@ -10,7 +10,7 @@ source:
   url: https://github.com/mhekkel/${{ name }}/archive/refs/tags/v${{ version }}.tar.gz
   sha256: e794589ef8aad5bd4d7bf674ca0dfa2a4027b3bcc966496490ba18d8908cd080
 build:
-  number: 1
+  number: 2
   script:
     - if: unix
       then: |
