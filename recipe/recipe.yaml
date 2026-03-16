@@ -51,6 +51,8 @@ requirements:
     - howardhinnant_date
     - nlohmann_json
     - zeem
+    - if: linux
+      then: maartens_resource_compiler
   run_exports:
     - ${{ pin_subpackage(name, upper_bound="x") }}
   ignore_run_exports:
