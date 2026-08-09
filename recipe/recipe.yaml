@@ -40,7 +40,7 @@ build:
           -DZEEP_USE_BOOST_ASIO=OFF ^
           || exit /b 1
         cmake --build build --parallel %CPU_COUNT% || exit /b 1
-        set PATH=%CD%\build\bin;%CD%\build\lib;%PATH%
+        set PATH=%CD%\build;%PATH%
         @REM Run tests, excluding the HTTP test which brings about a SEGFAULT error
         ctest -V -C Release --test-dir build -E "http-test" || exit /b 1
         cmake --install build || exit /b 1
