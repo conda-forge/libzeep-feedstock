@@ -5,7 +5,7 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/libzeep-feedsto
 
 Home: https://mhekkel.github.io/libzeep
 
-Package license: BSL-1.0
+Package license: BSD-2-Clause AND BSL-1.0
 
 Summary: C++ library for reading and writing XML and creating web, REST and SOAP servers
 
