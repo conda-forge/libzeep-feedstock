@@ -18,7 +18,7 @@ build:
         set -exo pipefail
         export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
         if [[ ${build_platform} != ${target_platform} ]]; then
-            extra_cmake_args="-DTEST_STD_CHRONO_FROM_STREAM_R=ON -DCMAKE_CROSSCOMPILING=ON"
+            extra_cmake_args="-DTEST_STD_CHRONO_ZONED_TIME_R=ON -DCMAKE_CROSSCOMPILING=ON"
         fi
         cmake -S . -B build -G Ninja \
           ${CMAKE_ARGS} \
