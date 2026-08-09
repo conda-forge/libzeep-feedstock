@@ -31,15 +31,8 @@ build:
         @echo on
         sed -i "/^#include <signal.h>$/i #include <exception>" src/signals.cpp || exit /b 1
         sed -i "/^#include <signal.h>$/a using std::exception;" src/signals.cpp || exit /b 1
-        > sed_script.txt (
-          echo /auto r = std::from_chars(c + 1, c + 3, value, 16);/c^\
-          echo const char* base = s.data();
-          echo const auto offset = c - s.begin();
-          echo auto r = std::from_chars(base + offset + 1, base + offset + 3, value, 16);
-        )
-        sed -i -f sed_script.txt src/uri.cpp
-        del sed_script.txt
-        sed -i -E "s#r\.ptr == c \+ 3#r.ptr == base + offset + 3#" src/uri.cpp
+        sed -i -E "s#auto r = std::from_chars\(c \+ 1, c \+ 3, value, 16\);#auto r = std::from_chars(s.data() + (c - s.begin()) + 1, s.data() + (c - s.begin()) + 3, value, 16);#" src/uri.cpp || exit /b 1
+        sed -i -E "s#r\.ptr == c \+ 3#r.ptr == s.data() + (c - s.begin()) + 3#" src/uri.cpp || exit /b 1
         cmake -S . -B build -G Ninja ^
           %CMAKE_ARGS% ^
           -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON ^
