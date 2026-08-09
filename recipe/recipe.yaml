@@ -80,8 +80,8 @@ about:
   homepage: https://mhekkel.github.io/libzeep
   repository: https://forge.hekkelman.net/maarten/zeep
   documentation: https://mhekkel.github.io/libzeep
-  license: BSL-1.0
-  license_file: LICENSE_1_0.txt
+  license: BSD-2-Clause AND BSL-1.0
+  license_file: LICENSES/
   summary: "C++ library for reading and writing XML and creating web, REST and SOAP servers"
   description: |
     Libzeep is a web application framework written in C++.
