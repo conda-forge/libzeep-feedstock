@@ -19,7 +19,6 @@ build:
         export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
         cmake -S . -B build -G Ninja \
           ${CMAKE_ARGS} \
-          -DCMAKE_CXX_STANDARD=20 \
           -DBUILD_SHARED_LIBS=ON \
           -DZEEP_USE_BOOST_ASIO=OFF
         cmake --build build --parallel ${CPU_COUNT}
@@ -33,7 +32,6 @@ build:
         sed -i "/^#include <signal.h>$/a #include <exception>" src/signals.cpp
         cmake -S . -B build -G Ninja ^
           %CMAKE_ARGS% ^
-          -DCMAKE_CXX_STANDARD=20 ^
           -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON ^
           -DBUILD_SHARED_LIBS=ON ^
           -DZEEP_USE_BOOST_ASIO=OFF ^
@@ -49,7 +47,7 @@ requirements:
     - ${{ compiler("cxx") }}
     - ${{ stdlib("c") }}
     - ${{ "clang-tools" if osx }}
-    - ${{ "m2-sed" if win }}
+    - ${{ "m2-sed" if win else "sed" }}
     - cmake
     - ninja
     - pkg-config
@@ -57,11 +55,10 @@ requirements:
     - asio
     - catch2
     - howardhinnant_date
+    - libzeem
+    - ${{ "maartens_resource_compiler" if linux }}
     - nlohmann_json
     - openssl
-    - zeem
-    - if: linux
-      then: maartens_resource_compiler
   run_exports:
     - ${{ pin_subpackage("libzeep", upper_bound="x") }}
   ignore_run_exports:
@@ -74,7 +71,6 @@ tests:
         - zeep/*
       lib:
         - zeep
-      strict: true
 
 about:
   homepage: https://mhekkel.github.io/libzeep
