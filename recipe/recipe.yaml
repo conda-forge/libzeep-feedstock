@@ -49,6 +49,7 @@ requirements:
     - catch2
     - howardhinnant_date
     - nlohmann_json
+    - openssl
     - zeem
     - if: linux
       then: maartens_resource_compiler
