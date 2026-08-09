@@ -31,7 +31,11 @@ build:
         @echo on
         sed -i "/^#include <signal.h>$/i #include <exception>" src/signals.cpp || exit /b 1
         sed -i "/^#include <signal.h>$/a using std::exception;" src/signals.cpp || exit /b 1
-        sed -i -E "s#if \(r\.ec == std::errc\{\} and r\.ptr == c \+ 3\)#if (r.ec == std::errc{} and r.ptr == base + offset + 3)#" src/uri.cpp || exit /b 1
+        sed -i -E '/auto r = std::from_chars\(c \+ 1, c \+ 3, value, 16\);/c\
+        const char* base = s.data();\
+        const auto offset = c - s.begin();\
+        auto r = std::from_chars(base + offset + 1, base + offset + 3, value, 16);' src/uri.cpp
+        sed -i -E 's#r\.ptr == c \+ 3#r.ptr == base + offset + 3#' src/uri.cpp
         cmake -S . -B build -G Ninja ^
           %CMAKE_ARGS% ^
           -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON ^
