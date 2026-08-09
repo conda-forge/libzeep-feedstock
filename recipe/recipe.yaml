@@ -12,6 +12,7 @@ build:
   number: 0
   script:
     - sed -i -E 's#ssl::rfc2818_verification\(#ssl::host_name_verification(#g' src/client.cpp
+
     - if: unix
       then: |
         set -exo pipefail
@@ -29,6 +30,7 @@ build:
     - if: win
       then: |
         @echo on
+        sed -i "/^#include <signal.h>$/a #include <exception>" src/signals.cpp
         cmake -S . -B build -G Ninja ^
           %CMAKE_ARGS% ^
           -DCMAKE_CXX_STANDARD=20 ^
