@@ -65,7 +65,7 @@ requirements:
   run_exports:
     - ${{ pin_subpackage("libzeep", upper_bound="x") }}
   ignore_run_exports:
-    by_name:
+    from_package:
       - catch2
 
 tests:
