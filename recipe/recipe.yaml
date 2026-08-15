@@ -48,7 +48,6 @@ requirements:
     - ${{ compiler("cxx") }}
     - ${{ stdlib("c") }}
     - ${{ "clang-tools" if osx }}
-    - ${{ "m2-sed" if win else "sed" }}
     - cmake
     - ninja
     - pkg-config
