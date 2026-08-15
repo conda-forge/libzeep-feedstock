@@ -1,5 +1,5 @@
 context:
-  version: "8.1.0"
+  version: "8.2.0"
 
 package:
   name: libzeep
@@ -7,12 +7,10 @@ package:
 
 source:
   url: https://forge.hekkelman.net/maarten/zeep/archive/v${{ version }}.tar.gz
-  sha256: 1aa63b3dc10de06ba56faa2655345a0a72617b323be39c06e1fa226016f40ab4
+  sha256: f42a87e53f79fa602b2714354ea7f12c2156f0ac6e88fbe62fd9588b567b3aec
 build:
   number: 0
   script:
-    - sed -i -E 's#ssl::rfc2818_verification\(#ssl::host_name_verification(#g' src/client.cpp
-
     - if: unix
       then: |
         set -exo pipefail
@@ -33,10 +31,6 @@ build:
     - if: win
       then: |
         @echo on
-        sed -i "/^#include <signal.h>$/i #include <exception>" src/signals.cpp || exit /b 1
-        sed -i "/^#include <signal.h>$/a using std::exception;" src/signals.cpp || exit /b 1
-        sed -i -E "s#auto r = std::from_chars\(c \+ 1, c \+ 3, value, 16\);#auto r = std::from_chars(s.data() + (c - s.begin()) + 1, s.data() + (c - s.begin()) + 3, value, 16);#" src/uri.cpp || exit /b 1
-        sed -i -E "s#r\.ptr == c \+ 3#r.ptr == s.data() + (c - s.begin()) + 3#" src/uri.cpp || exit /b 1
         cmake -S . -B build -G Ninja ^
           %CMAKE_ARGS% ^
           -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON ^
@@ -54,7 +48,6 @@ requirements:
     - ${{ compiler("cxx") }}
     - ${{ stdlib("c") }}
     - ${{ "clang-tools" if osx }}
-    - ${{ "m2-sed" if win else "sed" }}
     - cmake
     - ninja
     - pkg-config
