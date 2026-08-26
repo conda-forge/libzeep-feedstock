@@ -1,5 +1,5 @@
 context:
-  version: "8.2.0"
+  version: "8.4.0"
 
 package:
   name: libzeep
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://forge.hekkelman.net/maarten/zeep/archive/v${{ version }}.tar.gz
-  sha256: f42a87e53f79fa602b2714354ea7f12c2156f0ac6e88fbe62fd9588b567b3aec
+  sha256: 6ff7cb193a5b674958a6b6318bff8350d92b39f9d778f6fafec179a118967dff
 build:
   number: 0
   script:
