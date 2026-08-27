@@ -8,6 +8,9 @@ package:
 source:
   url: https://forge.hekkelman.net/maarten/zeep/archive/v${{ version }}.tar.gz
   sha256: 6ff7cb193a5b674958a6b6318bff8350d92b39f9d778f6fafec179a118967dff
+  patches:
+    - disable-flat-map-on-libstdcxx.patch
+  
 build:
   number: 0
   script:
@@ -65,6 +68,7 @@ requirements:
   ignore_run_exports:
     from_package:
       - catch2
+      - libmcfp
 
 tests:
   - package_contents:
