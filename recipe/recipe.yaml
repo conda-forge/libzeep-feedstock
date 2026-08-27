@@ -50,6 +50,7 @@ requirements:
     - ${{ "clang-tools" if osx }}
     - ${{ "maartens_resource_compiler" if linux }}
     - cmake
+    - libmcfp <2.0.5
     - ninja
     - pkg-config
   host:
