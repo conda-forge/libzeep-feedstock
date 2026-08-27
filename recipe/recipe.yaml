@@ -48,12 +48,11 @@ requirements:
     - ${{ compiler("cxx") }}
     - ${{ stdlib("c") }}
     - ${{ "clang-tools" if osx }}
-    - ${{ "maartens_resource_compiler" if linux }}
     - cmake
-    - libmcfp <2.0.5
     - ninja
     - pkg-config
   host:
+    - ${{ "maartens_resource_compiler" if linux }}
     - asio
     - catch2
     - howardhinnant_date
