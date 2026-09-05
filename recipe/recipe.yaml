@@ -1,5 +1,5 @@
 context:
-  version: "8.4.0"
+  version: "8.4.1"
 
 package:
   name: libzeep
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://forge.hekkelman.net/maarten/zeep/archive/v${{ version }}.tar.gz
-  sha256: 6ff7cb193a5b674958a6b6318bff8350d92b39f9d778f6fafec179a118967dff
+  sha256: 8733df126015057868523e96f3c03fd61b0da993a7792631fe02c455e6e8bda7
   patches:
     - disable-flat-map-on-libstdcxx.patch
-  
+
 build:
   number: 0
   script:
