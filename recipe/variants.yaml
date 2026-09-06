@@ -1,3 +1,3 @@
 cxx_compiler:
-  if: win
-  then: vs2026
+  - if: win
+    then: vs2026
