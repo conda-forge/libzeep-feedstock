@@ -1,5 +1,5 @@
 context:
-  version: "8.4.0"
+  version: "8.4.1"
 
 package:
   name: libzeep
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://forge.hekkelman.net/maarten/zeep/archive/v${{ version }}.tar.gz
-  sha256: 6ff7cb193a5b674958a6b6318bff8350d92b39f9d778f6fafec179a118967dff
+  sha256: 8733df126015057868523e96f3c03fd61b0da993a7792631fe02c455e6e8bda7
   patches:
     - disable-flat-map-on-libstdcxx.patch
-  
+
 build:
   number: 0
   script:
@@ -19,11 +19,11 @@ build:
         set -exo pipefail
         export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
         if [[ ${build_platform} != ${target_platform} ]]; then
-            extra_cmake_args="-DCMAKE_CROSSCOMPILING=ON"
+            extra_cmake_args="-DCMAKE_CROSSCOMPILING=ON -DTEST_STD_CHRONO_FROM_STREAM_R=ON"
             if [[ ${target_platform} == linux-* ]]; then
-                extra_cmake_args="${extra_cmake_args} -DTEST_STD_CHRONO_ZONED_TIME_R=0"
+                extra_cmake_args+=" -DTEST_STD_CHRONO_ZONED_TIME_R=0"
             else
-                extra_cmake_args="${extra_cmake_args} -DTEST_STD_CHRONO_ZONED_TIME_R=ON"
+                extra_cmake_args+=" -DTEST_STD_CHRONO_ZONED_TIME_R=ON"
             fi
         fi
         cmake -S . -B build -G Ninja \

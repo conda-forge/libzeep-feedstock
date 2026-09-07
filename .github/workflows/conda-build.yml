@@ -68,7 +68,7 @@ jobs:
             os: windows
             pagefile_size: 0
             resize_partitions: False
-            runs_on: ['windows-2022']
+            runs_on: ['windows-2025']
             tools_install_dir: D:\Miniforge
     steps:
 

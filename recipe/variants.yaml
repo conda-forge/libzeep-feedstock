@@ -1,0 +1,9 @@
+cxx_compiler:
+  - if: win
+    then:
+      - vs2026
+
+github_actions_labels:
+  - if: win
+    then:
+      - windows-2025
