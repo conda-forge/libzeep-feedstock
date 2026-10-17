@@ -69,7 +69,7 @@ requirements:
     - nlohmann_json
     - openssl
   run_exports:
-    - ${{ pin_subpackage("libzeep", upper_bound="x") }}
+    - ${{ pin_subpackage("libzeep", upper_bound="x.x.x") }}
   ignore_run_exports:
     from_package:
       - catch2
