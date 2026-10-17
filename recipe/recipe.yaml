@@ -12,7 +12,7 @@ source:
     - disable-flat-map-on-libstdcxx.patch
 
 build:
-  number: 0
+  number: 1
   script:
     - if: unix
       then: |
@@ -64,8 +64,8 @@ requirements:
     - asio
     - catch2
     - howardhinnant_date
-    - libmcfp <2.0.5
-    - libzeem
+    - libmcfp >=2.1.1
+    - libzeem >=2.4.1
     - nlohmann_json
     - openssl
   run_exports:
