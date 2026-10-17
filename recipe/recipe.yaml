@@ -73,7 +73,6 @@ requirements:
   ignore_run_exports:
     from_package:
       - catch2
-      - libmcfp
 
 tests:
   - package_contents:
