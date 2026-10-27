@@ -1,5 +1,5 @@
 context:
-  version: "8.4.1"
+  version: "8.4.2"
 
 package:
   name: libzeep
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://forge.hekkelman.net/maarten/zeep/archive/v${{ version }}.tar.gz
-  sha256: 8733df126015057868523e96f3c03fd61b0da993a7792631fe02c455e6e8bda7
+  sha256: 279440bf00f932330bc2ed65f2f8b1d0e73a2ab849ee57a5ee3cd53fa0089ac5
   patches:
     - use-std-map.patch
 
 build:
-  number: 1
+  number: 0
 
 requirements:
   build:
